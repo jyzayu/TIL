@@ -1,3 +1,5 @@
+#dp테이블  내가 얻고자하는 최댓값  , 2차원있을때 왼쪽에서 위에서 둘중 i,j 와 더 했을 때 더 큰 것  최대가 되는 것과 더한다.
+# i = 0 and j = 0을 채운다. board값으로
 def solution(board):
     coins = [[0 for c in range(4)] for r in range(4)]
     for i in range(4):
