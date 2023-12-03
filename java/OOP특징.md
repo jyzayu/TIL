@@ -7,6 +7,17 @@ OOP 4가지 특징
 - static: 클래스와 외부에서 접근 가능. 인스턴스에서는 접근 불가
 - private: 클래스 본인만 접근 가능, 하위 클래스, 인스턴스 접근 불가
 - protected: 클래스 본인, 하위 클래스에서 접근 가능, 인스턴스 접근 불가
+
+```
+public poor, boil, seasoning 
+-> private poor boil() seasoning()
+public cook {  seasoning(boil(poor()));}
+```
+- public이었던 Pharmacist의 메소드들을 모두 private으로 변경했다. 그리고 이들을 모두 실행하는 public 메소드 operate를 새로 생성했다.
+- Patient에서는 Pharmacist의 opreate 메소드만 접근 가능하다. 하지만, opreate에서 Pharmacist에서 접근해야하는 기능들은 모두 접근할 수 있다.
+- 즉, Pharmacist  측면에서는 Patient에 operate 메소드만 노출시키고, 그 외 메소드들은 감춘 것이다. 즉, 데이터 은닉과 데이터 보호를 실현한 것이다.
+- 아울러, 코드적으로도 Pharmacist의 변경사항이 생기면, 해당 Class 변경해주면 된다. 유지보수의 용이성이 개선된 것이다.
+
 2. 상속
 - 기존에 구현한 클래스를 재사용하여 같은 속성과 기능을 갖는 하위 클래스를 구현하는 것을 의미합니다.
 3. 추상화
@@ -25,3 +36,5 @@ class A {
 4. 다형성
 - 어떤 객체의 속성이나 기능이 상황에 따라 여러 형태로 변할 수 있다는 것을 의미합니다.
 - 다형성 구현 예시로 상속/구현 상황에서 메서드 오버라이딩/오버로딩이 있습니다.
+
+https://coldpresso.tistory.com/15#:~:text=%2D%20%EC%B6%94%EC%83%81%ED%99%94%EB%9E%80%20%EC%9C%84%EC%97%90%EC%84%9C%20%EC%96%B8%EA%B8%89%ED%95%9C,%EA%B5%AC%ED%98%84%ED%95%98%EB%8A%94%20%EA%B2%83%EC%9D%84%20%EC%9D%98%EB%AF%B8%ED%95%9C%EB%8B%A4.
