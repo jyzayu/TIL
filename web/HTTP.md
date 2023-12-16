@@ -18,11 +18,22 @@ DELETE는 리소스를 제거할때 사용한다.
 
 ### 안전(Safe Methods)
 
-이 말은 계속해서 메소드를 호출해도 리소스를 변경하지 않는다는 뜻이다. 주요 메소드중에는 GET 메소드가 안전하다고 볼 수 있다.
+ Safe한 메서드는 "호출해도 리소스를 변경하지 않는다"는 특징을 갖습니다.
+GET, HEAD, OPTIONS, TRACE 메서드는 호출하더라도 리소스를 변경하지 않기 때문에 안전한 리소스가 됩니다.
+
 
 ### 멱등(Idempotent Methods)
 
 이 말은 메소드를 계속 호출해도 결과가 똑같다는 뜻이다. Get, PUT, DELETE는 멱등하다고 볼 수 있지만 POST나 PATCH는 멱등하다고 볼 수 없다.
+
+GET : 한 번 조회하든, 여러번 조회하든 같은 결과가 조회.
+
+PUT : 결과를 대체하므로 같은 요청을 여러번 해도 최종 결과는 똑같다.
+
+DELETE : 결과를 삭제. 같은 요청을 여러번 해도 삭제된 결과는 똑같다.
+
+단, 외부 요인으로 중간에 리소스가 변경되는 것 까지는 고려하지 않습니다.
+
 
 PATCH가 왜 멱등하지 않을까?
 
@@ -58,6 +69,9 @@ PATCH users/1
 ### 캐시가능(Cacheable Methods)
 
 캐시가능하다는 말은 말 그대로 캐싱을 해서 데이터를 효율적으로 가져올 수 있다는 뜻이다. GET, HEAD, POST, PATCH가 캐시가 가능하지만 실제로는 GET과 HEAD만 주로 캐싱이 쓰인다고 한다.
+
+POST, PATCH는 본문 내용까지 캐시 키로 고려해야 하기 때문에 구현이 쉽지않습니다.
+그래서 실제로는 GET, HEAD 정도만 캐시하여 사용합니다.
 ![image](https://github.com/jyzayu/TIL/assets/55649979/ac6c30c6-5920-478c-805e-cb7a1ff4585b)
 
 
@@ -67,3 +81,5 @@ PATCH users/1
 - 3xx (Redirection): 요청을 완료하려면 추가 행동이 필요
 - 4xx (Client Error): 클라이언트 오류, 잘못된 문법등으로 서버가 요청을 수행할 수 없음
 - 5xx (Server Error): 서버 오류, 서버가 정상 요청을 처리하지 못함
+
+출처: https://hstory0208.tistory.com/entry/HTTP-메서드-종류-및-속성 [< Hyun / Log >:티스토리]
