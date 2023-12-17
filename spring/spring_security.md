@@ -7,7 +7,7 @@
 
 개발자 입장에서는 일일이 보안관련 로직을 작성하지 않아도 된다는 장점이 있다.
 
-### Spring Security사용하시면서 어려운 점이 없었나요?
+### Spring Security사용하시면서 어려운 점
 Spring MVC와 Spring Security의 구조를 이해하지 못해서 어느 시점에 Security Filter와 DispatcherServlet이 동작하며 어떻게 Security Filter에 JWT를 처리하는지
 ### Filter와 Security Filter의 차이는 무엇인가요?
 Filter와 Security Filter 모두 Servlet에 요청이 맵핑되기 전에 실행되는 필터(Filter)입니다.
