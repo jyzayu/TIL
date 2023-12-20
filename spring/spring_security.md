@@ -7,7 +7,7 @@
 
 개발자 입장에서는 일일이 보안관련 로직을 작성하지 않아도 된다는 장점이 있다.
 
-### Spring Security사용하시면서 어려운 점
+### Spring Security 사용하면서 어려운 점
 Spring MVC와 Spring Security의 구조를 이해하지 못해서 어느 시점에 Security Filter와 DispatcherServlet이 동작하며 어떻게 Security Filter에 JWT를 처리하는지
 ### Filter와 Security Filter의 차이는 무엇인가요?
 Filter와 Security Filter 모두 Servlet에 요청이 맵핑되기 전에 실행되는 필터(Filter)입니다.
@@ -20,6 +20,11 @@ Security Filter는 DelegatingFilterProxy가 서블릿 컨테이너에 Filter로 
 1. Client가 요청을 보내면, Servlet Filter에 의해서 Security Filter로 작업이 위임되고 여러 Security Filter 중에서 JwtAuthenticationFilter에서 인증을 처리합니다.
 2. JwtAuthenticationFilter는 Servlet 요청 객체에서 토큰을 가져와서 JwtTokenProvider가 해당 토큰을 검증해 토큰이 유효한지 검사합니다.
 3. 토큰이 유효하다면 Authentication 객체를 만들고 AuthenticationManager를 사용할 필요 없이 직접 SecurityContextHolder에 접근해서 Authentication 객체를 저장합니다.
+
+SecurityContext는 default로 ThreadLocalSecurityContextHolderStrategy를 사용하여 인증 객체를 저장하기 때문에 스레드당 즉, 서블릿당 하나의 인증 객체가 저장됨을 알 수 있었습니다. 추후에 Controller나 Business Layer에서 이러한 Authentication 객체를 가져와서 직접 관련 비즈니스 로직들을 사용자에 맞게 태웠습니다.
+
+Java ThreadLocal
+자신의 스레드에서만 읽고 쓸 수 있는 변수를 저장하거나 관리하는데 사용하는 객체를 의미합니다.
     
 ### spring security 인증 프로세스
 1. 어플리케이션으로 http요청이 들어오면 AuthenticationFilter가 이 요청을 기반으로 인증되지 않은 UsernamePasswordAuthenticationToken(Authentication객체)을 만든다(isAuthenticated = false).
