@@ -1,0 +1,19 @@
+타입스크립트는 Java 같은 정적 타이핑 언어에 익숙한 사람에게 인기있습니다.
+에러 감지, 프로그램과 더 좋은 소통?, 더 좋은 코드 완성도 드으이 이점이 있습니다.
+타입스크립트로 바로 넘어가기 전에 자바스크립트가 OOP언어와 다른 점을 아는 것이 흔한 위험을 피하고, 더 좋은 자바스크립트 코드를 작성하는데 도움이 됩니다.
+자바스크립트 런타임 동작을 이해하기 위해 자바스크립트 without type을 먼저 학습하길 권장합니다. 실제 동작은 js와 다르지 않습니다. 
+특정 런타임 동작(converting stirng to number, displaying alert, writing file to disc 을 어떻게 성취할지는 타입스크립트에서도 자바스크립트와 동일하게 동작합니다.
+
+
+function greeter(person: string) {
+  return "Hello, " + person;
+}
+ 
+let user = [0, 1, 2];
+ 
+document.body.textContent = greeter(user);
+
+type annotation 
+person : string 형식으로 type annotatinon을 추가할 수 있습니다.
+앞의 코드는 string parameter 에 number[] 을 넣으려 해서 에러가 발생합니다. 컴파일을 완료하고 greeter.js 파일은 생성됩니다. 
+그러나 타입스크립트가 코드가 정상적으로 동작하지 않을 수 있다고 경고합니다.
