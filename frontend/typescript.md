@@ -90,11 +90,68 @@ void (undefined를 리턴하거나 리턴 값이 없는 함수).
 
 타입을 구축하기 위한 두 가지 구문이 있다는 것을 꽤 빠르게 알 수 있을 것입니다.: Interfaces and Types - interface를 우선적으로 사용하고 특정 기능이 필요할 때 type을 사용해야 합니다.
 
+### 타입 구성 (Composing Types)
+객체들을 조합하여 더 크고 복잡한 객체를 만드는 방법과 유사하게 TypeScript에 타입으로 이를 수행하는 도구가 있습니다. 여러가지 타입을 이용하여 새 타입을 작성하기 위해 일상적인 코드에서 가장 많이 사용되는 두 가지 코드로는 유니언(Union)과 제네릭(Generic)이 있습니다.
 
+유니언 (Unions)
+유니언은 타입이 여러 타입 중 하나일 수 있음을 선언하는 방법입니다. 예를 들어, boolean 타입을 true 또는 false로 설명할 수 있습니다:
 
+type MyBool = true | false;
+참고: MyBool위에 마우스를 올린다면, boolean으로 분류된 것을 볼 수 있습니다 - 구조적 타입 시스템의 프로퍼티며, 나중에 살펴보겠습니다.
 
+유니언 타입이 가장 많이 사용된 사례 중 하나는 값이 다음과 같이 허용되는 string 또는 number의 리터럴집합을 설명하는 것입니다:
+| 연산자로 리터럴집합을 정의하여 타입으로 사용 가능합니다. 이를 리터럴 타입이라 합니다.
+```
+type WindowStates = "open" | "closed" | "minimized";
+type LockStates = "locked" | "unlocked";
+type OddNumbersUnderTen = 1 | 3 | 5 | 7 | 9;
+```
+### 리터럴 타입
+var, let 으로 정의한 변수는 값을 변경할 수 있어 무한한 수의 값을 가질 수 있습니다.
+const로 한 경우 값을 변경하지 못해 무한한 수의 경우의 처리에서  유한한 수의 경우 처리로 줄이는 것을 literal narrowing 이라 하고 
+리터럴 집합으로 타입을 표현하는 것도 이와 유사하다 할 수 있습니다.
 
+TypeScript는 코드가 시간에 따라 변수가 변경되는 방식을 이해하며, 이러한 검사를 사용해 타입을 골라낼 수 있습니다.
+예를 들어, typeof obj === "string"을 이용하여 string과 array를 구분할 수 있으며 그에 따라 다른 코드를 실행하도록 할 수 있습니다.
+```
+function wrapInArray(obj: string | string[]) {
+  if (typeof obj === "string") {
+    return [obj];
+//          ^?
+  } else {
+    return obj;
+  }
+}
+```
 
+다음 타입 구성방법으로 제네릭입니다
+### 제네릭
+ 제네릭은 타입에 변수를 제공하는 방법입니다.
+
+배열이 일반적인 예시이며, 제네릭이 없는 배열은 어떤 것이든 포함할 수 있습니다. 제네릭이 있는 배열은 배열 안의 값을 설명할 수 있습니다.
+```
+type StringArray = Array<string>;
+type NumberArray = Array<number>;
+type ObjectWithNameArray = Array<{ name: string }>;
+```
+제네릭을 사용하는 고유 타입을 선언할 수 있습니다:
+```
+// @errors: 2345
+interface Backpack<Type> {
+  add: (obj: Type) => void;
+  get: () => Type;
+}
+
+// 이 줄은 TypeScript에 `backpack`이라는 상수가 있음을 알리는 지름길이며
+// const backpack: Backpack<string>이 어디서 왔는지 걱정할 필요가 없습니다.
+declare const backpack: Backpack<string>;
+
+// 위에서 Backpack의 변수 부분으로 선언해서, object는 string입니다.
+const object = backpack.get();
+
+// backpack 변수가 string이므로, add 함수에 number를 전달할 수 없습니다.
+backpack.add(23);
+```
 
 
 타입스크립트는 Java 같은 정적 타이핑 언어에 익숙한 사람에게 인기있습니다.
